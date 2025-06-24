@@ -95,7 +95,7 @@ impl Stream for StreamWrapper {
             Poll::Pending => Poll::Pending,
             Poll::Ready(None) => Poll::Ready(None),
             Poll::Ready(Some(Err(err))) => {
-                Poll::Ready(Some(Err(Error::new(ErrorKind::Other, err))))
+                Poll::Ready(Some(Err(Error::other(err))))
             }
             Poll::Ready(Some(Ok(res))) => {
                 if let Message::Binary(b) = res {
