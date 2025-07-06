@@ -42,7 +42,7 @@ impl AddrMaybeCached {
 impl Display for AddrMaybeCached {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self.socket_addr {
-            Some(s) => f.write_fmt(format_args!("{}", s)),
+            Some(s) => f.write_fmt(format_args!("{s}")),
             None => f.write_str(&self.addr),
         }
     }

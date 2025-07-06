@@ -55,7 +55,7 @@ async fn tcp() -> Result<()> {
     });
 
     test("tests/for_tcp/tcp_transport.toml", Type::Tcp).await?;
-        
+
     #[cfg(any(
         // FIXME: Self-signed certificate on macOS nativetls requires manual interference.
         all(target_os = "macos", feature = "rustls"),

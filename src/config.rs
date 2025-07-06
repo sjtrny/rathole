@@ -329,7 +329,7 @@ impl Config {
     pub async fn from_file(path: &Path) -> Result<Config> {
         let s: String = fs::read_to_string(path)
             .await
-            .with_context(|| format!("Failed to read the config {:?}", path))?;
+            .with_context(|| format!("Failed to read the config {path:?}"))?;
         Config::from_str(&s).with_context(|| {
             "Configuration is invalid. Please refer to the configuration specification."
         })

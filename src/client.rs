@@ -243,7 +243,7 @@ async fn run_data_channel_for_tcp<T: Transport>(
 
     let mut local = TcpStream::connect(local_addr)
         .await
-        .with_context(|| format!("Failed to connect to {}", local_addr))?;
+        .with_context(|| format!("Failed to connect to {local_addr}"))?;
     let _ = copy_bidirectional(&mut conn, &mut local).await;
     Ok(())
 }
@@ -541,7 +541,7 @@ impl ControlChannelHandle {
                         time::sleep(duration).await;
                     } else {
                         // Should never reach
-                        panic!("{:#}. Break", err);
+                        panic!("{err:#}. Break");
                     }
 
                     start = Instant::now();

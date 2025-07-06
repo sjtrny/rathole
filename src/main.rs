@@ -12,13 +12,13 @@ async fn main() -> Result<()> {
     tokio::spawn(async move {
         if let Err(e) = signal::ctrl_c().await {
             // Something really weird happened. So just panic
-            panic!("Failed to listen for the ctrl-c signal: {:?}", e);
+            panic!("Failed to listen for the ctrl-c signal: {e:?}");
         }
 
         if let Err(e) = shutdown_tx.send(true) {
             // shutdown signal must be catched and handle properly
             // `rx` must not be dropped
-            panic!("Failed to send shutdown signal: {:?}", e);
+            panic!("Failed to send shutdown signal: {e:?}");
         }
     });
 
