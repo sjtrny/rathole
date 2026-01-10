@@ -149,7 +149,7 @@ impl AsyncWrite for WebsocketTunnel {
         let sw = self.get_mut().inner.get_mut();
         ready!(Pin::new(&mut sw.inner)
             .poll_ready(cx)
-            .map_err(|err| Error::other(err)))?;
+            .map_err(Error::other))?;
 
         match Pin::new(&mut sw.inner).start_send(Message::Binary(buf.to_vec())) {
             Ok(()) => Poll::Ready(Ok(buf.len())),
@@ -160,13 +160,13 @@ impl AsyncWrite for WebsocketTunnel {
     fn poll_flush(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Result<(), Error>> {
         Pin::new(&mut self.get_mut().inner.get_mut().inner)
             .poll_flush(cx)
-            .map_err(|err| Error::other(err))
+            .map_err(Error::other)
     }
 
     fn poll_shutdown(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Result<(), Error>> {
         Pin::new(&mut self.get_mut().inner.get_mut().inner)
             .poll_close(cx)
-            .map_err(|err| Error::other(err))
+            .map_err(Error::other)
     }
 }
 
