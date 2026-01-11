@@ -33,6 +33,7 @@ jobs:
           --mutually-exclusive-features native-tls,rustls
           --mutually-exclusive-features websocket-native-tls,websocket-rustls
           --at-least-one-of native-tls,rustls
+          --at-least-one-of client,server
 
 
 
