@@ -29,8 +29,12 @@ jobs:
         run: cargo install cargo-hack
       - name: Check all features
         run: >
-          cargo hack check --feature-powerset --no-dev-deps
-          --mutually-exclusive-features default,native-tls,websocket-native-tls,rustls,websocket-rustls
+          cargo hack check --feature-powerset --no-dev-deps --exclude-no-default-features
+          --mutually-exclusive-features native-tls,rustls
+          --mutually-exclusive-features websocket-native-tls,websocket-rustls
+          --at-least-one-of native-tls,rustls
+
+
 
   build:
     name: Build for ${{ matrix.target }}
