@@ -137,3 +137,6 @@ vergen = { version = "7.4.2", default-features = false, features = [
     "cargo",
 ] }
 anyhow = "1.0"
+
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-l", "advapi32"]

@@ -46,9 +46,9 @@ jobs:
           - os: ubuntu-latest
             exe: rathole
             target: x86_64-unknown-linux-gnu
-          # - os: windows-latest
-          #   exe: rathole.exe
-          #   target: x86_64-pc-windows-msvc
+          - os: windows-latest
+            exe: rathole.exe
+            target: x86_64-pc-windows-msvc
           # - os: macos-latest
           #   exe: rathole
           #   target: x86_64-apple-darwin
