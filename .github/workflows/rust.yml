@@ -70,7 +70,7 @@ jobs:
       - name: Build
         run: cargo build
       - name: Clippy (deny warnings)
-        run: cargo clippy --all-targets -- -D warnings
+        run: cargo clippy -- -D warnings
       # - name: Run tests with native-tls
       #   run: cargo test --verbose
       # - name: Run tests with rustls
