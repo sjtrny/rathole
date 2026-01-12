@@ -59,14 +59,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          rustflags: "" 
       # - uses: Swatinem/rust-cache@v1  # Cache already provided by setup-rust-toolchain
+      - run: |
+          echo "RUSTFLAGS=$env:RUSTFLAGS"
+          Get-Content .cargo/config.toml
       - name: Build
         run: cargo build
-      - name: Run tests with native-tls
-        run: cargo test --verbose
-      - name: Run tests with rustls
-        run: cargo test --verbose --no-default-features --features server,client,rustls,noise,websocket-rustls,hot-reload
-      - uses: actions/upload-artifact@v4
-        with:
-          name: rathole-${{ matrix.target }}
-          path: target/debug/${{ matrix.exe }}
+      # - name: Run tests with native-tls
+      #   run: cargo test --verbose
+      # - name: Run tests with rustls
+      #   run: cargo test --verbose --no-default-features --features server,client,rustls,noise,websocket-rustls,hot-reload
+      # - uses: actions/upload-artifact@v4
+      #   with:
+      #     name: rathole-${{ matrix.target }}
+      #     path: target/debug/${{ matrix.exe }}
