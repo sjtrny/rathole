@@ -59,14 +59,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rust-lang/setup-rust-toolchain@v1
-        # with:
-        #   rustflags: "" 
+        with:
+          rustflags: ""          # important: don't set RUSTFLAGS
+          components: clippy     # optional; your rust-toolchain.toml already has clippy/rustfmt
+
       # - uses: Swatinem/rust-cache@v1  # Cache already provided by setup-rust-toolchain
       - run: |
           echo "RUSTFLAGS=$env:RUSTFLAGS"
           Get-Content .cargo/config.toml
       - name: Build
         run: cargo build
+      - name: Clippy (deny warnings)
+        run: cargo clippy --all-targets -- -D warnings
       # - name: Run tests with native-tls
       #   run: cargo test --verbose
       # - name: Run tests with rustls
