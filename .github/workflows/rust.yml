@@ -60,9 +60,6 @@ jobs:
       - uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           rustflags: ""
-      - run: |
-          echo "RUSTFLAGS=$env:RUSTFLAGS"
-          Get-Content .cargo/config.toml
       - name: Build
         run: cargo build
       - name: Run tests with native-tls
