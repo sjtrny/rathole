@@ -22,7 +22,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rust-lang/setup-rust-toolchain@v1
-      # - uses: Swatinem/rust-cache@v1 # Cache already provided by setup-rust-toolchain
       - name: Clippy
         run: cargo clippy -- -D warnings
       - name: Setup cargo-hack
@@ -43,39 +42,34 @@ jobs:
     strategy:
       matrix:
         include:
-          # - os: ubuntu-latest
-          #   exe: rathole
-          #   target: x86_64-unknown-linux-gnu
+          - os: ubuntu-latest
+            exe: rathole
+            target: x86_64-unknown-linux-gnu
           - os: windows-latest
             exe: rathole.exe
             target: x86_64-pc-windows-msvc
-          # - os: macos-latest
-          #   exe: rathole
-          #   target: x86_64-apple-darwin
-          # - os: macos-latest
-          #   exe: rathole
-          #   target: aarch64-apple-darwin
+          - os: macos-latest
+            exe: rathole
+            target: x86_64-apple-darwin
+          - os: macos-latest
+            exe: rathole
+            target: aarch64-apple-darwin
 
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
-          rustflags: ""          # important: don't set RUSTFLAGS
-          components: clippy     # optional; your rust-toolchain.toml already has clippy/rustfmt
-
-      # - uses: Swatinem/rust-cache@v1  # Cache already provided by setup-rust-toolchain
+          rustflags: ""
       - run: |
           echo "RUSTFLAGS=$env:RUSTFLAGS"
           Get-Content .cargo/config.toml
       - name: Build
         run: cargo build
-      - name: Clippy (deny warnings)
-        run: cargo clippy -- -D warnings
-      # - name: Run tests with native-tls
-      #   run: cargo test --verbose
-      # - name: Run tests with rustls
-      #   run: cargo test --verbose --no-default-features --features server,client,rustls,noise,websocket-rustls,hot-reload
-      # - uses: actions/upload-artifact@v4
-      #   with:
-      #     name: rathole-${{ matrix.target }}
-      #     path: target/debug/${{ matrix.exe }}
+      - name: Run tests with native-tls
+        run: cargo test --verbose
+      - name: Run tests with rustls
+        run: cargo test --verbose --no-default-features --features server,client,rustls,noise,websocket-rustls,hot-reload
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rathole-${{ matrix.target }}
+          path: target/debug/${{ matrix.exe }}
