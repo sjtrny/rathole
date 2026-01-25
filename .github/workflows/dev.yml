@@ -167,13 +167,6 @@ jobs:
           pattern: "bin-*"
           merge-multiple: true
 
-      - name: Show downloaded files
-        shell: bash
-        run: |
-          set -euxo pipefail
-          ls -lah
-          find dist -maxdepth 3 -type f -print || true
-
       - name: Generate PR-based notes + Update Release + upload assets
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
