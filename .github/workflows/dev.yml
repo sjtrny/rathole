@@ -54,13 +54,13 @@ jobs:
         shell: bash
         run: |
           set -euxo pipefail
-          cargo build --release --locked --target ${{ matrix.target }}
+          cargo build --release --locked --bin rathole
       - name: Package
         shell: bash
         run: |
           set -euxo pipefail
           mkdir -p out dist
-          cp "target/${{ matrix.target }}/release/${{ matrix.bin }}" dist/
+          cp "target/release/${{ matrix.bin }}" dist/
           tar -czf "out/rathole-dev-${{ matrix.target }}-${GITHUB_SHA::7}.tar.gz" -C dist .
           ls -lah out/
 
