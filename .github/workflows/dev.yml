@@ -61,14 +61,15 @@ jobs:
           set -euxo pipefail
           mkdir -p out dist
           cp "target/release/${{ matrix.bin }}" dist/
-          tar -czf "out/rathole-dev-${{ matrix.target }}-${GITHUB_SHA::7}.tar.gz" -C dist .
+          tar -czf "out/rathole-dev-${{ matrix.target }}.tar.gz" -C dist .
           ls -lah out/
 
       - uses: actions/upload-artifact@v4
         with:
           name: bin-${{ matrix.target }}
-          path: out/rathole-dev-${{ matrix.target }}-*.tar.gz
+          path: out/rathole-dev-${{ matrix.target }}.tar.gz
           if-no-files-found: error
+
 
   docker:
     name: Build & push docker (dev)
